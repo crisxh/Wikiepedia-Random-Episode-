@@ -1,0 +1,106 @@
+// ==UserScript==
+// @name         Wikipedia Random Episode
+// @namespace    https://en.wikipedia.org/wiki/List_of_*episodes*
+// @version      0.1
+// @description  try to take over the world!
+// @author       You
+// @match        https://en.wikipedia.org/wiki/List_of_*episodes*
+// @icon         https://www.google.com/s2/favicons?domain=wikipedia.org
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    let randomBox=document.createElement("div");
+    randomBox.id="randomBox";
+    randomBox.style.display="flex";
+    randomBox.style.flexDirection="row-reverse";
+    randomBox.style.justifyContent="flex-end";
+
+     /*to put the button at the top of the page*/
+    let body=document.getElementById("bodyContent");
+    
+    /*to put the button at the top of the table of episodes */
+    let body=document.querySelector(".wikiepisodetable");
+
+    let randomOutput=document.createElement("div");
+    randomOutput.id="randomOutput";
+    randomOutput.style.backgroundColor="lightgrey";
+    randomOutput.style.border="1px black solid";
+    randomOutput.style.height="50px";
+    randomOutput.style.width="300px";
+    randomOutput.style.margin="10px";
+    randomOutput.style.borderRadius="5%";
+    randomOutput.style.padding="5px";
+
+
+    let randomButton=document.createElement("button");
+    randomButton.id="randomButton";
+    randomButton.style.margin="10px";
+    randomButton.style.border="none";
+    randomButton.style.backgroundColor="green";
+    randomButton.style.height="50px";
+    randomButton.style.width="100px";
+    randomButton.style.borderRadius="5%";
+    randomButton.style.border="2px outset black";
+    randomButton.style.color="white";
+
+    randomButton.addEventListener("click",function(){
+         let episodes= document.querySelectorAll("td.summary");
+    let titleRegex=/[^("\\")]\w+\s*[^(\\"")]/;
+
+    let epArr=[];
+    let titles=[]
+
+
+
+
+    for (let i=0;i<episodes.length;i++){
+    epArr.push(episodes[i].innerText);
+    }
+
+     let randomEp=epArr[Math.floor(Math.random()*epArr.length)];
+    console.log(episodes);
+    console.log(epArr);
+
+    console.log("random episode"+randomEp);
+
+    
+
+    /*window.alert("Your random episode title is: "+randomEp);*/
+        randomOutput.innerHTML="Your random episode title is: "+randomEp;
+        /*randomBox.append(randomOutput);*/
+
+    })
+
+    randomButton.innerHTML="Random Episode";
+
+
+
+   body.prepend(randomBox);
+    randomBox.append(randomOutput);
+    randomBox.append(randomButton);
+    /*body.prepend(randomOutput);*/
+
+    randomButton.addEventListener("mousedown",e=>{
+//         randomButton.style.boxShadow="-2px -2px 5px black";
+        randomButton.style.backgroundColor="darkgreen";
+        randomButton.style.border="2px inset black";
+        })
+
+    randomButton.addEventListener("mouseup",e=>{
+      //  randomButton.style.boxShadow="2px 2px 5px black";
+        randomButton.style.backgroundColor="green";
+        randomButton.style.border="2px outset black";
+    })
+
+
+
+
+
+
+
+
+   
+})();
